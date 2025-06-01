@@ -2,6 +2,8 @@ import React from 'react';
 import { Code2, Brain, Rocket, ArrowRight, Users, Briefcase, Building2, Award, Github } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
 
 const About = () => {
   const features = [
@@ -41,7 +43,7 @@ const About = () => {
         className="max-w-4xl mx-auto"
       >
         {/* Hero Section */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2 }}
@@ -56,29 +58,28 @@ const About = () => {
         </motion.div>
 
         {/* Features Grid */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5 }}
           className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16"
         >
-          {features.map((feature, index) => (
-            <motion.div 
-              key={index}
-              whileHover={{ y: -5 }}
-              className="bg-gray-900/50 backdrop-blur-sm rounded-xl p-8 border border-gray-800 hover:border-gray-700 transition-all"
-            >
-              <div className="mb-6">
-                {feature.icon}
-              </div>
-              <h3 className="text-xl font-bold text-white mb-3">
-                {feature.title}
-              </h3>
-              <p className="text-gray-400 leading-relaxed">
-                {feature.description}
-              </p>
-            </motion.div>
-          ))}
+          {
+            features.map((feature, index) => (
+              <Card className='bg-gray-900/50 backdrop-blur-sm rounded-xl p-8 border border-gray-800 hover:border-gray-700 transition-all'>
+                <CardHeader>
+                  {feature.icon}
+                  <CardTitle className='mt-4'>{feature.title}</CardTitle>
+                </CardHeader>
+                
+                <CardContent>
+                  <p>
+                    {feature.description}
+                  </p>
+                </CardContent>
+              </Card>
+            ))
+          }
         </motion.div>
 
         {/* Call to Action */}
