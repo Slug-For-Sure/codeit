@@ -11,6 +11,13 @@ const MAX_VISIBLE_SUBCATEGORIES = 5
 
 export default function Footer() {
   const [expandedCategories, setExpandedCategories] = useState<string[]>([])
+  const [items, setItems] = useState<{key: string, item: string, path: string}[]>([
+    {key: '1', item: 'Privacy Policy', path: 'privacy-policy'},
+    {key: '2', item: 'Terms of Service', path: 'terms-of-service'},
+    {key: '3', item: 'Contact Us', path: 'contact'},
+    {key: '4', item: 'About Us', path: 'about'},
+    {key: '5', item: 'Help Center', path: 'help-center'},
+  ])
 
   const toggleCategory = (category: string) => {
     setExpandedCategories(prev =>
@@ -21,7 +28,7 @@ export default function Footer() {
   }
 
   return (
-    <footer className="bg-background py-8 px-4 md:px-6 border-t">
+    <footer className="bg-background py-4 px-4 md:px-6 border-t">
       <div className="container mx-auto">
         {/* <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {Object.entries(courseSubCategories).map(([category, subcategories]) => (
@@ -77,15 +84,15 @@ export default function Footer() {
             </div>
           ))}
         </div> */}
-        <div className="mt-8 flex flex-col sm:flex-row justify-between items-center">
+        <div className="mt-2 flex flex-col sm:flex-row justify-between items-center">
           <p className="text-sm text-muted-foreground">© 2025 CODEIT. All rights reserved.</p>
           <nav className="flex gap-4 sm:gap-6 mt-4 sm:mt-0">
-            <Link className="text-sm hover:underline underline-offset-4" to="/terms">
-              Terms of Service
-            </Link>
-            <Link className="text-sm hover:underline underline-offset-4" to="/privacy">
-              Privacy
-            </Link>
+
+            {items.map((item) => (
+              <Link key={item.key} className="text-sm hover:underline underline-offset-4" to={`${item.path}`}>
+                {item.item}
+              </Link>
+            ))}
           </nav>
         </div>
       </div>

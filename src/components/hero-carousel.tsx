@@ -105,7 +105,7 @@ export function HeroCarousel({ loading, items }: CourseCarouselProps) {
         </Card>
       )}
 
-      <div className="absolute top-1/2 left-4 xl:-left-16 transform -translate-y-1/2">
+      {/* <div className="absolute top-1/2 left-4 xl:-left-16 transform -translate-y-1/2">
         <Button
           variant="outline"
           size="icon"
@@ -115,9 +115,9 @@ export function HeroCarousel({ loading, items }: CourseCarouselProps) {
           <ChevronLeft className="h-4 w-4" />
           <span className="sr-only">Previous course</span>
         </Button>
-      </div>
+      </div> */}
 
-      <div className="absolute top-1/2 right-4 xl:-right-16 transform -translate-y-1/2">
+      {/* <div className="absolute top-1/2 right-4 xl:-right-16 transform -translate-y-1/2">
         <Button
           variant="outline"
           size="icon"
@@ -127,9 +127,9 @@ export function HeroCarousel({ loading, items }: CourseCarouselProps) {
           <ChevronRight className="h-4 w-4" />
           <span className="sr-only">Next course</span>
         </Button>
-      </div>
+      </div> */}
 
-      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+      {/* <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
         {items.map((_, index) => (
           <Button
             key={index}
@@ -143,9 +143,9 @@ export function HeroCarousel({ loading, items }: CourseCarouselProps) {
             <span className="sr-only">Go to slide {index + 1}</span>
           </Button>
         ))}
-      </div>
+      </div> */}
 
-      <div className="absolute top-4 right-4">
+      {/* <div className="absolute top-4 right-4">
         <Button
           variant="outline"
           size="icon"
@@ -164,7 +164,7 @@ export function HeroCarousel({ loading, items }: CourseCarouselProps) {
             </>
           )}
         </Button>
-      </div>
+      </div> */}
     </div>
   );
 }

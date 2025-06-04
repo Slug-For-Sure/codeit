@@ -2,8 +2,8 @@ import axios from "axios";
 import { Course, CreateCourseData } from "../types";
 
 export const api = axios.create({
-    baseURL: "https://codeit-91id.onrender.com/api/v1",
-    // baseURL: "http://localhost:3000/api/v1",
+    // baseURL: "https://codeit-91id.onrender.com/api/v1",
+    baseURL: "http://localhost:3000/api/v1",
 });
 
 export const setAuthToken = (token: string) => {

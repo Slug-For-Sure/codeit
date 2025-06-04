@@ -22,7 +22,11 @@ import NProgress from "nprogress";
 import { useEffect } from "react";
 import "nprogress/nprogress.css";
 import GridPattern from "./components/grid-pattern";
-import About from "./pages/About";
+import About from "./pages/AboutCourse";
+import PrivacyPolicy from "./pages/Policy/Privacypolicy";
+import CancellationsRefunds from "./pages/Policy/CancellationsRefunds";
+import TermsOfService from "./pages/Policy/TermsOfServic";
+import Contact from "./pages/Policy/Contact";
 function App() {
   const { theme } = useTheme();
 
@@ -58,7 +62,12 @@ function App() {
             path="my-learning/course/track/:trackId"
             element={<TrackContent />}
           />
-          <Route path="about" element={<About />} />
+          <Route path="about-course" element={<About />} />
+           <Route path="privacy-policy" element={<PrivacyPolicy />} />
+           <Route path="cancellations-refunds" element={<CancellationsRefunds />} />
+           <Route path="terms-of-service" element={<TermsOfService />} />
+           <Route path="contact" element={<Contact />} />
+
           <Route path="*" element={<NotFound />} />
         <Route
           path="grid"

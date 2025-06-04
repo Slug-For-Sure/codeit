@@ -114,7 +114,7 @@ console.log(loading);
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16 items-center">
           <Link to="/" className="flex items-center space-x-2">
-              <div className="w-18 h-10 rounded-full overflow-hidden">
+              <div className="w-18 h-8 rounded-full overflow-hidden">
                 {/* <svg width="20" height="20" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">  <g clip-path="url(#clip0_231_793)">
                   <path fill-rule="evenodd" clip-rule="evenodd" d="M50 0H200V50V150L150 200L150 50H0L50 0ZM0 165.067V100L65.067 100L0 165.067ZM100 200H35.7777L100 135.778L100 200Z"
                     fill="url(#paint0_linear_231_793)" />
@@ -204,7 +204,7 @@ console.log(loading);
                 Code It Bootcamp
               </ListItem> */}
               <Button variant="ghost" size="sm" asChild>
-                <Link to="/about">
+                <Link to="about-course">
                   Code It Bootcamp
                 </Link>
               </Button>
