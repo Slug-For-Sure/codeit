@@ -33,6 +33,7 @@ function App() {
   return (
     <>
       <RouteChangeHandler />
+       <ScrollToTop />
       <Routes>
         <Route path="/instructor" element={<InstructorDashboardLayout />}>
           <Route index element={<InstructorDashboard />} />
@@ -105,5 +106,14 @@ const RouteChangeHandler = () => {
 
   return null;
 };
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+}
 
 export default App;
