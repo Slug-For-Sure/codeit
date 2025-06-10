@@ -115,128 +115,122 @@ export const Navbar = () => {
     <nav className="border-b bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16 items-center">
-          <div className="flex items-center">
-            {/* Mobile Menu Button */}
-            <div className="md:hidden mr-2">
-              <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
-                <SheetTrigger asChild>
-                  <Button variant="ghost" size="icon">
-                    {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-                  </Button>
-                </SheetTrigger>
-                <SheetContent side="left" className="w-[300px] sm:w-[350px]">
-                  <div className="flex flex-col h-full">
-                    {/* <div className="flex items-center justify-between mb-6">
-                      <Link to="/" onClick={() => setMobileMenuOpen(false)} className="flex items-center space-x-2">
-                        <img src={logo} alt="logo" className="w-18 h-8" />
-                      </Link>
-                      <SheetClose asChild>
-                        <Button variant="ghost" size="icon">
-                          <X className="h-5 w-5" />
-                        </Button>
-                      </SheetClose>
-                    </div> */}
+          {/* Mobile Menu Button - Now on the left */}
+          <div className="md:hidden">
+            <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
+              <SheetTrigger asChild>
+                <Button variant="ghost" size="icon">
+                  <Menu className="h-5 w-5" />
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="left" className="w-[300px] sm:w-[350px]">
+                <div className="flex flex-col h-full">
+                  {/* <div className="flex items-center justify-between mb-6">
+                    <Link to="/" onClick={() => setMobileMenuOpen(false)} className="flex items-center space-x-2">
+                      <img src={logo} alt="logo" className="w-18 h-8" />
+                    </Link>
+                    <SheetClose asChild>
+                      <Button variant="ghost" size="icon">
+                        <X className="h-5 w-5" />
+                      </Button>
+                    </SheetClose>
+                  </div> */}
 
-                    <div className="flex-1 space-y-4">
-                      <form onSubmit={handleSearch} className="px-2">
-                        <div className="relative">
-                          <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-                          <Input
-                            type="search"
-                            placeholder="Search courses..."
-                            value={searchQuery}
-                            onChange={(e) => setSearchQuery(e.target.value)}
-                            className="w-full pl-8 pr-3 py-2"
-                          />
-                        </div>
-                      </form>
-
-                      <div className="space-y-1">
-                        <Button variant="ghost" className="w-full justify-start" asChild>
-                          <Link to="/about-course" onClick={() => setMobileMenuOpen(false)}>
-                            Code It Bootcamp
-                          </Link>
-                        </Button>
-
-                        {isAuthenticated && (
-                          <>
-                            <Button variant="ghost" className="w-full justify-start" asChild>
-                              <Link to="/my-learning" onClick={() => setMobileMenuOpen(false)}>
-                                My Learning
-                              </Link>
-                            </Button>
-                            <Button variant="ghost" className="w-full justify-start" asChild>
-                              <Link to="/cart" onClick={() => setMobileMenuOpen(false)}>
-                                <ShoppingCart className="h-4 w-4 mr-2" />
-                                My Cart
-                              </Link>
-                            </Button>
-                          </>
-                        )}
+                  <div className="flex-1 space-y-4 mt-10">
+                    <form onSubmit={handleSearch} className="px-2">
+                      <div className="relative">
+                        <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+                        <Input
+                          type="search"
+                          placeholder="Search courses..."
+                          value={searchQuery}
+                          onChange={(e) => setSearchQuery(e.target.value)}
+                          className="w-full pl-8 pr-3 py-2"
+                        />
                       </div>
+                    </form>
 
-                      <div className="pt-4 border-t">
-                        {isAuthenticated ? (
-                          <>
-                            <div className="flex items-center gap-3 px-3 py-2 mb-3">
-                              <Avatar className="h-8 w-8">
-                                <AvatarImage src={user?.avatar} alt={user?.username} />
-                                <AvatarFallback>{user?.username?.charAt(0).toUpperCase()}</AvatarFallback>
-                              </Avatar>
-                              <div>
-                                <p className="font-medium">{user?.username}</p>
-                                <p className="text-xs text-muted-foreground">{user?.email}</p>
-                              </div>
-                            </div>
+                    <div className="space-y-1">
+                      <Button variant="ghost" className="w-full justify-start" asChild>
+                        <Link to="/about-course" onClick={() => setMobileMenuOpen(false)}>
+                          Code It Bootcamp
+                        </Link>
+                      </Button>
 
-                            <Button variant="ghost" className="w-full justify-start" asChild>
-                              <Link to="/profile" onClick={() => setMobileMenuOpen(false)}>
-                                <User className="h-4 w-4 mr-2" />
-                                Profile
-                              </Link>
-                            </Button>
-                            <Button variant="ghost" className="w-full justify-start" asChild>
-                              <Link to="/settings" onClick={() => setMobileMenuOpen(false)}>
-                                <Settings className="h-4 w-4 mr-2" />
-                                Settings
-                              </Link>
-                            </Button>
-                            <Button variant="ghost" className="w-full justify-start" onClick={handleLogout}>
-                              <LogOut className="h-4 w-4 mr-2" />
-                              Logout
-                            </Button>
-                          </>
-                        ) : (
-                          <div className="space-y-2">
-                            <Button className="w-full" asChild>
-                              <Link to="/register" onClick={() => setMobileMenuOpen(false)}>
-                                Register
-                              </Link>
-                            </Button>
-                            <Button variant="outline" className="w-full" asChild>
-                              <Link to="/login" onClick={() => setMobileMenuOpen(false)}>
-                                Login
-                              </Link>
-                            </Button>
-                          </div>
-                        )}
-                      </div>
+                      {isAuthenticated && (
+                        <>
+                          <Button variant="ghost" className="w-full justify-start" asChild>
+                            <Link to="/my-learning" onClick={() => setMobileMenuOpen(false)}>
+                              My Learning
+                            </Link>
+                          </Button>
+                          <Button variant="ghost" className="w-full justify-start" asChild>
+                            <Link to="/cart" onClick={() => setMobileMenuOpen(false)}>
+                              <ShoppingCart className="h-4 w-4 mr-2" />
+                              My Cart
+                            </Link>
+                          </Button>
+                        </>
+                      )}
                     </div>
 
                     <div className="pt-4 border-t">
-                      <ModeToggleDropdown />
+                      {isAuthenticated ? (
+                        <>
+                          <div className="flex items-center gap-3 px-3 py-2 mb-3">
+                            <Avatar className="h-8 w-8">
+                              <AvatarImage src={user?.avatar} alt={user?.username} />
+                              <AvatarFallback>{user?.username?.charAt(0).toUpperCase()}</AvatarFallback>
+                            </Avatar>
+                            <div>
+                              <p className="font-medium">{user?.username}</p>
+                              <p className="text-xs text-muted-foreground">{user?.email}</p>
+                            </div>
+                          </div>
+
+                          <Button variant="ghost" className="w-full justify-start" asChild>
+                            <Link to="/profile" onClick={() => setMobileMenuOpen(false)}>
+                              <User className="h-4 w-4 mr-2" />
+                              Profile
+                            </Link>
+                          </Button>
+                          <Button variant="ghost" className="w-full justify-start" asChild>
+                            <Link to="/settings" onClick={() => setMobileMenuOpen(false)}>
+                              <Settings className="h-4 w-4 mr-2" />
+                              Settings
+                            </Link>
+                          </Button>
+                          <Button variant="ghost" className="w-full justify-start" onClick={handleLogout}>
+                            <LogOut className="h-4 w-4 mr-2" />
+                            Logout
+                          </Button>
+                        </>
+                      ) : (
+                        <div className="space-y-2">
+                          <Button className="w-full" asChild>
+                            <Link to="/register" onClick={() => setMobileMenuOpen(false)}>
+                              Register
+                            </Link>
+                          </Button>
+                          <Button variant="outline" className="w-full" asChild>
+                            <Link to="/login" onClick={() => setMobileMenuOpen(false)}>
+                              Login
+                            </Link>
+                          </Button>
+                        </div>
+                      )}
                     </div>
                   </div>
-                </SheetContent>
-              </Sheet>
-            </div>
 
-            <Link to="/" className="flex items-center space-x-2">
-              <img src={logo} alt="logo" className="w-18 h-8" />
-            </Link>
+                  <div className="pt-4 border-t">
+                    <ModeToggleDropdown />
+                  </div>
+                </div>
+              </SheetContent>
+            </Sheet>
           </div>
 
-          {/* Desktop Navigation */}
+          {/* Desktop Navigation - Center */}
           <NavigationMenu className="hidden md:block ml-6">
             <NavigationMenuList>
               <Button variant="ghost" size="sm" asChild>
@@ -247,6 +241,14 @@ export const Navbar = () => {
             </NavigationMenuList>
           </NavigationMenu>
 
+          {/* Logo - Now on the right for mobile, stays in normal position for desktop */}
+          <div className="flex-1 md:flex-none flex justify-end md:justify-start">
+            <Link to="/" className="flex items-center space-x-2">
+              <img src={logo} alt="logo" className="w-18 h-8" />
+            </Link>
+          </div>
+
+          {/* Desktop Right Side Items */}
           <div className="hidden md:flex items-center space-x-4">
             {/* Search Bar */}
             <form onSubmit={handleSearch} className="hidden md:flex items-center space-x-2">
@@ -261,7 +263,7 @@ export const Navbar = () => {
                 />
               </div>
             </form>
-            
+
             {isAuthenticated && (
               <>
                 <Button variant="ghost" size="sm" asChild>
@@ -277,7 +279,6 @@ export const Navbar = () => {
               </>
             )}
 
-            {/* Icons and Dropdown */}
             <ModeToggleDropdown />
             {isAuthenticated ? (
               <AvatarDropdown user={user} onLogout={handleLogout} />
