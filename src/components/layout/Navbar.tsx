@@ -116,11 +116,18 @@ export const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16 items-center">
           {/* Mobile Menu Button - Now on the left */}
+
+          {/* Logo - Now on the right for mobile, stays in normal position for desktop */}
+          <div className="flex-1 md:flex-none flex justify-start md:justify-start">
+            <Link to="/" className="flex items-center space-x-2">
+              <img src={logo} alt="logo" className="w-18 h-6 md:w-18 md:h-8" />
+            </Link>
+          </div>
           <div className="md:hidden">
             <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
               <SheetTrigger asChild>
                 <Button variant="ghost" size="icon">
-                  <Menu className="h-5 w-5" />
+                  <Menu className="h-10 w-10" />
                 </Button>
               </SheetTrigger>
               <SheetContent side="left" className="w-[300px] sm:w-[350px]">
@@ -228,13 +235,6 @@ export const Navbar = () => {
                 </div>
               </SheetContent>
             </Sheet>
-          </div>
-
-          {/* Logo - Now on the right for mobile, stays in normal position for desktop */}
-          <div className="flex-1 md:flex-none flex justify-end md:justify-start">
-            <Link to="/" className="flex items-center space-x-2">
-              <img src={logo} alt="logo" className="w-18 h-8" />
-            </Link>
           </div>
           {/* Desktop Navigation - Center */}
           <NavigationMenu className="hidden md:block ml-6">
