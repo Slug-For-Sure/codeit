@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import logo from '@/assets/logo.png';
 import {
   Book, GraduationCap, LogOut, Settings, User,
-  ShoppingCart, Heart, BookOpen, Search
+  ShoppingCart, Heart, BookOpen, Search, Menu, X
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -23,6 +23,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '../ui/dropdown-menu';
 import { ModeToggleDropdown } from '../mode-toggle-dropdown';
 import { useTabContext } from '@/contexts/tab-context';
+import { Sheet, SheetContent, SheetTrigger, SheetClose } from '@/components/ui/sheet';
 
 // Reusable ListItem Component for Navigation Menus
 const ListItem = ({ title, href, children }) => {
@@ -55,10 +56,9 @@ export const Navbar = () => {
   const { isAuthenticated, user, logout, login } = useAuth();
   const [loading, setLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   // Fetch user details on mount if auth token exists
-console.log(loading);
-
   useEffect(() => {
     const fetchUserDetails = async () => {
       const authToken = getAuthToken();
@@ -90,6 +90,7 @@ console.log(loading);
       async () => {
         const response = await apiLogout(authToken);
         logout();
+        setMobileMenuOpen(false);
         return response?.data?.message || 'You have successfully logged out.';
       },
       {
@@ -106,6 +107,7 @@ console.log(loading);
     e.preventDefault();
     if (searchQuery.trim()) {
       navigate(`/courses/${encodeURIComponent(searchQuery.trim())}`);
+      setMobileMenuOpen(false);
     }
   };
 
@@ -113,96 +115,130 @@ console.log(loading);
     <nav className="border-b bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16 items-center">
-          <Link to="/" className="flex items-center space-x-2">
-              <div className="w-18 h-8 rounded-full overflow-hidden">
-                {/* <svg width="20" height="20" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">  <g clip-path="url(#clip0_231_793)">
-                  <path fill-rule="evenodd" clip-rule="evenodd" d="M50 0H200V50V150L150 200L150 50H0L50 0ZM0 165.067V100L65.067 100L0 165.067ZM100 200H35.7777L100 135.778L100 200Z"
-                    fill="url(#paint0_linear_231_793)" />
-                </g>
-                  <defs>
-                    <linearGradient id="paint0_linear_231_793" x1="177" y1="-9.23648e-06" x2="39.5" y2="152.5" gradientUnits="userSpaceOnUse">
-                      <stop stop-color="#022c22" />
-                      <stop offset="1" stop-color="#2dd4bf" />
-                    </linearGradient>
-                    <clipPath id="clip0_231_793">
-                      <rect width="200" height="200" fill="white" />
-                    </clipPath>
-                  </defs>
-                </svg> */}
-                <img src={logo} alt="logo" className="w-full h-full" />
-              </div>
-            {/* <span className="text-xl font-bold">CODEIT</span> */}
-          </Link>
+          <div className="flex items-center">
+            {/* Mobile Menu Button */}
+            <div className="md:hidden mr-2">
+              <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
+                <SheetTrigger asChild>
+                  <Button variant="ghost" size="icon">
+                    {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+                  </Button>
+                </SheetTrigger>
+                <SheetContent side="left" className="w-[300px] sm:w-[350px]">
+                  <div className="flex flex-col h-full">
+                    {/* <div className="flex items-center justify-between mb-6">
+                      <Link to="/" onClick={() => setMobileMenuOpen(false)} className="flex items-center space-x-2">
+                        <img src={logo} alt="logo" className="w-18 h-8" />
+                      </Link>
+                      <SheetClose asChild>
+                        <Button variant="ghost" size="icon">
+                          <X className="h-5 w-5" />
+                        </Button>
+                      </SheetClose>
+                    </div> */}
 
-          {/* Navigation Menu */}
-          {/* <NavigationMenu className="hidden md:block ml-6">
-            <NavigationMenuList>
-              <NavigationMenuItem>
-                <NavigationMenuTrigger>Courses</NavigationMenuTrigger>
-                <NavigationMenuContent>
-                  <ul className="grid w-[700px] gap-3 p-4 md:grid-cols-2">
-                    <li className="row-span-3">
-                      <NavigationMenuLink asChild>
-                        <Link
-                          to="/courses/all"
-                          className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
-                        >
-                          <Book className="h-6 w-6" />
-                          <div className="mt-4 mb-2 text-lg font-medium">
-                            All Courses
+                    <div className="flex-1 space-y-4">
+                      <form onSubmit={handleSearch} className="px-2">
+                        <div className="relative">
+                          <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+                          <Input
+                            type="search"
+                            placeholder="Search courses..."
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            className="w-full pl-8 pr-3 py-2"
+                          />
+                        </div>
+                      </form>
+
+                      <div className="space-y-1">
+                        <Button variant="ghost" className="w-full justify-start" asChild>
+                          <Link to="/about-course" onClick={() => setMobileMenuOpen(false)}>
+                            Code It Bootcamp
+                          </Link>
+                        </Button>
+
+                        {isAuthenticated && (
+                          <>
+                            <Button variant="ghost" className="w-full justify-start" asChild>
+                              <Link to="/my-learning" onClick={() => setMobileMenuOpen(false)}>
+                                My Learning
+                              </Link>
+                            </Button>
+                            <Button variant="ghost" className="w-full justify-start" asChild>
+                              <Link to="/cart" onClick={() => setMobileMenuOpen(false)}>
+                                <ShoppingCart className="h-4 w-4 mr-2" />
+                                My Cart
+                              </Link>
+                            </Button>
+                          </>
+                        )}
+                      </div>
+
+                      <div className="pt-4 border-t">
+                        {isAuthenticated ? (
+                          <>
+                            <div className="flex items-center gap-3 px-3 py-2 mb-3">
+                              <Avatar className="h-8 w-8">
+                                <AvatarImage src={user?.avatar} alt={user?.username} />
+                                <AvatarFallback>{user?.username?.charAt(0).toUpperCase()}</AvatarFallback>
+                              </Avatar>
+                              <div>
+                                <p className="font-medium">{user?.username}</p>
+                                <p className="text-xs text-muted-foreground">{user?.email}</p>
+                              </div>
+                            </div>
+
+                            <Button variant="ghost" className="w-full justify-start" asChild>
+                              <Link to="/profile" onClick={() => setMobileMenuOpen(false)}>
+                                <User className="h-4 w-4 mr-2" />
+                                Profile
+                              </Link>
+                            </Button>
+                            <Button variant="ghost" className="w-full justify-start" asChild>
+                              <Link to="/settings" onClick={() => setMobileMenuOpen(false)}>
+                                <Settings className="h-4 w-4 mr-2" />
+                                Settings
+                              </Link>
+                            </Button>
+                            <Button variant="ghost" className="w-full justify-start" onClick={handleLogout}>
+                              <LogOut className="h-4 w-4 mr-2" />
+                              Logout
+                            </Button>
+                          </>
+                        ) : (
+                          <div className="space-y-2">
+                            <Button className="w-full" asChild>
+                              <Link to="/register" onClick={() => setMobileMenuOpen(false)}>
+                                Register
+                              </Link>
+                            </Button>
+                            <Button variant="outline" className="w-full" asChild>
+                              <Link to="/login" onClick={() => setMobileMenuOpen(false)}>
+                                Login
+                              </Link>
+                            </Button>
                           </div>
-                          <p className="text-sm leading-tight text-muted-foreground">
-                            Explore our comprehensive learning paths
-                          </p>
-                        </Link>
-                      </NavigationMenuLink>
-                    </li>
-                    <ListItem href="/courses/web-development" title="Web Development">
-                      HTML, CSS, JavaScript, React, Node.js
-                    </ListItem>
-                    <ListItem href="/courses/data science" title="Data Science">
-                      Python, Machine Learning, Data Analysis
-                    </ListItem>
-                    <ListItem href="/courses/ai" title="Artificial Intelligence">
-                      Machine Learning, Deep Learning, Neural Networks
-                    </ListItem>
-                  </ul>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
+                        )}
+                      </div>
+                    </div>
 
-              <NavigationMenuItem>
-                <NavigationMenuTrigger>Popular Topics</NavigationMenuTrigger>
-                <NavigationMenuContent>
-                  <ul className="grid w-[600px] gap-3 p-4 grid-cols-2">
-                    <ListItem href="/courses/ai" title="Artificial Intelligence" >
-                      Machine Learning, Deep Learning
-                    </ListItem>
-                    <ListItem href="/courses/blockchain" title="Blockchain" >
-                      Cryptocurrency, Smart Contracts, Bitcoin
-                    </ListItem>
-                    <ListItem href="/courses/cybersecurity" title="Cybersecurity" >
-                      Ethical Hacking, Penetration Testing
-                    </ListItem>
-                    <ListItem href="/courses/cloud computing" title="Cloud Computing" >
-                      AWS, Azure, Google Cloud
-                    </ListItem>
-                    <ListItem href="/courses/data engineering" title="Data Engineering" >
-                      Data Warehousing, ETL, Big Data
-                    </ListItem>
-                    <ListItem href="/courses/mobile development" title="Mobile Development" >
-                      Android, iOS, Flutter, React Native
-                    </ListItem>
-                  </ul>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
-            </NavigationMenuList>
-          </NavigationMenu> */}
+                    <div className="pt-4 border-t">
+                      <ModeToggleDropdown />
+                    </div>
+                  </div>
+                </SheetContent>
+              </Sheet>
+            </div>
 
+            <Link to="/" className="flex items-center space-x-2">
+              <img src={logo} alt="logo" className="w-18 h-8" />
+            </Link>
+          </div>
+
+          {/* Desktop Navigation */}
           <NavigationMenu className="hidden md:block ml-6">
             <NavigationMenuList>
-              {/* <ListItem href="/about" title="Code It Bootcamp">
-                Code It Bootcamp
-              </ListItem> */}
               <Button variant="ghost" size="sm" asChild>
                 <Link to="about-course">
                   Code It Bootcamp
@@ -211,8 +247,7 @@ console.log(loading);
             </NavigationMenuList>
           </NavigationMenu>
 
-          <div className="hidden md:flex items-center space-x-4 ">
-
+          <div className="hidden md:flex items-center space-x-4">
             {/* Search Bar */}
             <form onSubmit={handleSearch} className="hidden md:flex items-center space-x-2">
               <div className="relative">
@@ -226,29 +261,21 @@ console.log(loading);
                 />
               </div>
             </form>
-            {
-              isAuthenticated ? (
-                <>
-                  <Button variant="ghost" size="sm" asChild>
-                    <Link to="/my-learning">
-                      My Learning
-                    </Link>
-                  </Button>
-                  {/* <Button variant="ghost" size="sm" asChild>
-                    <Link to="/my-learning/wishlist">
-                      <Heart className="h-4 w-4" />
-                    </Link>
-                  </Button> */}
-                
-                  <Button variant="ghost" size="sm" asChild>
-                    <Link to="/cart">
-                      <ShoppingCart className="h-4 w-4" />
-                    </Link>
-                  </Button>
-                </>
-              ) : (
-         <></>)
-            }
+            
+            {isAuthenticated && (
+              <>
+                <Button variant="ghost" size="sm" asChild>
+                  <Link to="/my-learning">
+                    My Learning
+                  </Link>
+                </Button>
+                <Button variant="ghost" size="sm" asChild>
+                  <Link to="/cart">
+                    <ShoppingCart className="h-4 w-4" />
+                  </Link>
+                </Button>
+              </>
+            )}
 
             {/* Icons and Dropdown */}
             <ModeToggleDropdown />
@@ -270,7 +297,6 @@ console.log(loading);
     </nav>
   );
 };
-
 
 const AvatarDropdown = ({ user, onLogout }) => {
   return (
@@ -314,7 +340,6 @@ const AvatarDropdown = ({ user, onLogout }) => {
             <BookOpen className="mr-2 h-4 w-4" />
             <span>My Learning</span>
           </Link>
-
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
           <Link to="/my-learning/wishlist">
