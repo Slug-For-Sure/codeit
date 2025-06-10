@@ -230,6 +230,12 @@ export const Navbar = () => {
             </Sheet>
           </div>
 
+          {/* Logo - Now on the right for mobile, stays in normal position for desktop */}
+          <div className="flex-1 md:flex-none flex justify-end md:justify-start">
+            <Link to="/" className="flex items-center space-x-2">
+              <img src={logo} alt="logo" className="w-18 h-8" />
+            </Link>
+          </div>
           {/* Desktop Navigation - Center */}
           <NavigationMenu className="hidden md:block ml-6">
             <NavigationMenuList>
@@ -241,12 +247,6 @@ export const Navbar = () => {
             </NavigationMenuList>
           </NavigationMenu>
 
-          {/* Logo - Now on the right for mobile, stays in normal position for desktop */}
-          <div className="flex-1 md:flex-none flex justify-end md:justify-start">
-            <Link to="/" className="flex items-center space-x-2">
-              <img src={logo} alt="logo" className="w-18 h-8" />
-            </Link>
-          </div>
 
           {/* Desktop Right Side Items */}
           <div className="hidden md:flex items-center space-x-4">
