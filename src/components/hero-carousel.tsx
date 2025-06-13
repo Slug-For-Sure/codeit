@@ -90,13 +90,13 @@ export function HeroCarousel({ loading, items }: CourseCarouselProps) {
                     <h2 className="text-white/90 text-sm md:text-md lg:text-md">
                       {items[currentIndex]?.description}
                     </h2>
-                    <span className="">
+                    {/* <span className="">
                       Created by: {items[currentIndex]?.createdBy.username}
-                    </span>
+                    </span> */}
                     <span className="font-bold"></span>
-                    <div className="flex items-center">
+                    {/* <div className="flex items-center">
                       {renderRatingStars(items[currentIndex]?.averageRating)}
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </div>
