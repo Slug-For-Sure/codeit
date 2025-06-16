@@ -19,5 +19,6 @@ createRoot(document.getElementById("root")!).render(
         </CartProvider>
       </AuthProvider>
     </Router>
+    <Analytics />
   </ThemeProvider>
 );

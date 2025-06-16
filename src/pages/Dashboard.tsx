@@ -77,6 +77,8 @@ export default function Dashboard() {
       .sort((a, b) => b.averageRating - a.averageRating)
       .slice(0, count);
   };
+  console.log(courses);
+  
 
   return (
     <>
