@@ -10,10 +10,12 @@ import { useNavigate } from "react-router-dom";
 import { LazyMotion,domAnimation } from "motion/react";
 import { motion } from "motion/react";
 import { Code2, Users, Briefcase, Building2, Award, Rocket } from "lucide-react";
+import { useAuth } from "@/contexts/auth-context";
 export default function Dashboard() {
   const [courses, setCourses] = useState<Course[]>([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const { user, isAuthenticated } = useAuth();
   useEffect(() => {
     const loadCourses = async () => {
       try {
@@ -242,7 +244,7 @@ export default function Dashboard() {
               <p className="text-gray-300 text-sm">
                 All premium features in one affordable package
               </p>
-              <button onClick={() =>  navigate("/course/overview/" + courses[0]?._id)} className="mt-6 w-full py-3 px-4 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-medium rounded-lg transition-all">
+              <button onClick={isAuthenticated ? () => navigate("/course/overview/" + courses[0]?._id) : () => navigate("/login")} className="mt-6 w-full py-3 px-4 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-medium rounded-lg transition-all">
                 Enroll Now
               </button>
             </div>
