@@ -242,7 +242,7 @@ export default function Dashboard() {
               <p className="text-gray-300 text-sm">
                 All premium features in one affordable package
               </p>
-              <button className="mt-6 w-full py-3 px-4 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-medium rounded-lg transition-all">
+              <button onClick={() =>  navigate("/course/overview/" + courses[0]?._id)} className="mt-6 w-full py-3 px-4 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-medium rounded-lg transition-all">
                 Enroll Now
               </button>
             </div>
