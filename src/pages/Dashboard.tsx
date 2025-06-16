@@ -18,12 +18,10 @@ export default function Dashboard() {
     const loadCourses = async () => {
       try {
         const data = await fetchAllCourse();
-        console.log(data);
         setCourses(data?.data?.data);
         setLoading(false);
       } catch (error) {
-        console.error("Error fetching courses:", error);
-        setLoading(false);
+          setLoading(false);
         toast.error("Failed to fetch courses. Please try again.");
       }
     };

@@ -63,7 +63,7 @@ export default function CheckoutButton({
         key: "rzp_test_UFqvqMvAS64vKp",
         amount: orderData.amount * 100, // Convert to paise
         currency: orderData.currency,
-        name: "Gyansagar",
+        name: "CODEIT",
         description: `Purchase of ${orderItems.length} course(s)`,
         image: favicon,
         order_id: orderData.orderId,

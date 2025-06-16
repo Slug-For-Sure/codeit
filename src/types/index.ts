@@ -20,6 +20,7 @@ export interface AuthState {
 export type Role = 'both' | 'student';
 
 export interface Course {
+  learningObjectives: any;
   _id: string;
   title: string;
   description: string;

@@ -22,16 +22,13 @@ export default function CourseOverview() {
     window.scrollTo(0, 0); // Scroll to top of the page on component mount
     const loadCourse = async () => {
       try {
-        console.log("Fetching course:", courseId);
-
         const response = await fetchCourse(courseId);
         if (response.data.success) {
-          console.log("Course:", response.data.data);
           setCourse(response.data.data);
         } else {
-          console.error("Failed to fetch courses:", response.data.message);
+          setCourse(undefined); // Set course to undefined if not found
+          return;
         }
-        console.log("Course:", course);
 
         setLoading(false);
       } catch (error) {
@@ -41,6 +38,7 @@ export default function CourseOverview() {
     };
     loadCourse();
   }, [courseId]);
+console.log(course);
 
   // const handleAddToCart = async (courseId: string) => {
   //   try {
@@ -93,7 +91,6 @@ export default function CourseOverview() {
                 {course.description}
               </p>
             </div>
-
             <div className="flex items-center gap-4 text-sm">
               <div className="flex items-center gap-1">
                 <Star className="h-4 w-4 fill-primary text-primary" />
@@ -102,12 +99,12 @@ export default function CourseOverview() {
                   to="#reviews"
                   className="text-muted-foreground hover:text-primary"
                 >
-                  ({course.reviews.length} ratings)
+                  {/* ({course.reviews.length} ratings) */}
                 </Link>
               </div>
-              <div className="text-muted-foreground">
+              {/* <div className="text-muted-foreground">
                 {course.studentsEnrolled.length} learners
-              </div>
+              </div> */}
             </div>
 
             <div className="flex items-center gap-4 text-sm text-muted-foreground">
@@ -135,40 +132,41 @@ export default function CourseOverview() {
 
             <div className="space-y-4">
               <h2 className="text-xl font-semibold">What you'll learn</h2>
-              <ul className="grid gap-3 sm:grid-cols-2">
-                <li className="flex gap-2">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="h-6 w-6 flex-shrink-0"
-                  >
-                    <polyline points="20 6 9 17 4 12" />
-                  </svg>
-                  <span>Learn the fundamentals of SQL</span>
-                </li>
-                <li className="flex gap-2">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="h-6 w-6 flex-shrink-0"
-                  >
-                    <polyline points="20 6 9 17 4 12" />
-                  </svg>
-                  <span>
-                    Learn how to request data from a server, limit and sort the
-                    responses, aggregate data from multiple tables
-                  </span>
-                </li>
+                <ul className="grid gap-3 sm:grid-cols-2">
+                {course.learningObjectives && course.learningObjectives.map((item, index) => {
+                  // Check if item is a string (heading)
+                  if (typeof item === 'string') {
+                  return (
+                    <li key={index} className="col-span-2 font-semibold text-lg mt-2">
+                    {item}
+                    </li>
+                  );
+                  }
+                  // Check if item is an array (simple list of objectives)
+                  else if (Array.isArray(item)) {
+                  return item.map((objective, objIndex) => (
+                    <li key={`${index}-${objIndex}`} className="flex items-start gap-2">
+                    <Star className="h-4 w-4 text-primary" />
+                    <span>{objective}</span>
+                    </li>
+                  ));
+                  }
+                  // Check if item is an object (categorized objectives)
+                  else if (typeof item === 'object') {
+                  return Object.entries(item).map(([category, objectives], catIndex) => (
+                    <div key={`${index}-${catIndex}`}>
+                    <li className="col-span-2 font-medium text-base mt-1">{category}:</li>
+                    {Array.isArray(objectives) && objectives.map((objective, objIndex) => (
+                      <li key={`${index}-${catIndex}-${objIndex}`} className="flex items-start gap-2 ml-4">
+                      <Star className="h-4 w-4 text-primary" />
+                      <span>{objective}</span>
+                      </li>
+                    ))}
+                    </div>
+                  ));
+                  }
+                  return null;
+                })}
               </ul>
             </div>
 
@@ -205,11 +203,11 @@ export default function CourseOverview() {
                         ₹{course.price}
                       </span>
                     </div>
-                    <div className="flex items-center gap-2 text-sm text-red-600">
+                    {/* <div className="flex items-center gap-2 text-sm text-red-600">
                       <Clock className="h-4 w-4" />
                       <span>3 hours</span>
                       left at this price!
-                    </div>
+                    </div> */}
                     <div className="flex gap-2">
                       <Button
                         onClick={() => handleAddToCart(course._id)}
@@ -238,7 +236,7 @@ export default function CourseOverview() {
                     <div className="text-center text-sm text-muted-foreground">
                       Full Lifetime Access
                     </div>
-                    <div className="flex justify-between text-sm">
+                    {/* <div className="flex justify-between text-sm">
                       <Button variant="link" className="p-0">
                         Share
                       </Button>
@@ -248,7 +246,7 @@ export default function CourseOverview() {
                       <Button variant="link" className="p-0">
                         Apply Coupon
                       </Button>
-                    </div>
+                    </div> */}
                   </TabsContent>
                   <TabsContent value="teams" className="space-y-4">
                     <div className="text-center text-muted-foreground">
