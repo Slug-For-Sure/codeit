@@ -60,7 +60,7 @@ export default function CheckoutButton({
       }
 
       const options = {
-        key: "rzp_test_UFqvqMvAS64vKp",
+        key: "rzp_live_i22xA2d7GT6Ngr",
         amount: orderData.amount * 100, // Convert to paise
         currency: orderData.currency,
         name: "CODEIT",
