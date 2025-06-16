@@ -6,6 +6,7 @@ import { ThemeProvider } from "next-themes";
 import { TabProvider } from "./contexts/tab-context";
 import { CartProvider } from "./contexts/cart-context";
 import { BrowserRouter as Router } from "react-router-dom";
+import { Analytics } from "@vercel/analytics/react"
 
 createRoot(document.getElementById("root")!).render(
   <ThemeProvider>
