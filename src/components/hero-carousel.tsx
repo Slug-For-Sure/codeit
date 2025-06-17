@@ -66,7 +66,11 @@ export function HeroCarousel({ loading, items }: CourseCarouselProps) {
       ) : (
         <Card
           onClick={() => {
-            navigate("/course/overview/" + items[currentIndex]?._id);
+            navigate("/course/overview/" ,{
+                state:{
+                 courseId: items[currentIndex]?._id
+                }
+            });
           }}
           className="overflow-hidden cursor-pointer"
         >

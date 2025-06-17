@@ -33,7 +33,7 @@ function App() {
   return (
     <>
       <RouteChangeHandler />
-       <ScrollToTop />
+      <ScrollToTop />
       <Routes>
         <Route path="/instructor" element={<InstructorDashboardLayout />}>
           <Route index element={<InstructorDashboard />} />
@@ -53,6 +53,10 @@ function App() {
             path="course/overview/:courseId"
             element={<CourseOverview />}
           />
+          <Route
+            path="course/overview"
+            element={<CourseOverview />}
+          />
           <Route path="courses/:category" element={<CategoryPage />} />
           <Route path="cart" element={<CartContents />} />
           <Route
@@ -64,22 +68,22 @@ function App() {
             element={<TrackContent />}
           />
           <Route path="about-course" element={<About />} />
-           <Route path="privacy-policy" element={<PrivacyPolicy />} />
-           <Route path="cancellations-refunds" element={<CancellationsRefunds />} />
-           <Route path="terms-of-service" element={<TermsOfService />} />
-           <Route path="contact" element={<Contact />} />
+          <Route path="privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="cancellations-refunds" element={<CancellationsRefunds />} />
+          <Route path="terms-of-service" element={<TermsOfService />} />
+          <Route path="contact" element={<Contact />} />
 
           <Route path="*" element={<NotFound />} />
-        <Route
-          path="grid"
-          element={
-            <div className="dark:bg-[#010807] bg-[rgba(187,225,219,0.44)] h-[200vh] pt-12">
-              <GridPattern />
-            </div>
-          }
+          <Route
+            path="grid"
+            element={
+              <div className="dark:bg-[#010807] bg-[rgba(187,225,219,0.44)] h-[200vh] pt-12">
+                <GridPattern />
+              </div>
+            }
           />
         </Route>
-       
+
       </Routes>
       <Toaster
         closeButton
@@ -97,7 +101,7 @@ const RouteChangeHandler = () => {
     NProgress.start();
     const timer = setTimeout(() => {
       NProgress.done();
-    },100);
+    }, 100);
     return () => {
       clearTimeout(timer);
       NProgress.done();

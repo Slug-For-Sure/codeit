@@ -1,7 +1,7 @@
 "use client";
 
 import { Clock, Globe, Play, Star } from "lucide-react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -13,11 +13,11 @@ import MinimalLoaderComponent from "./ui/minimal-loader";
 import { useCart } from "@/contexts/cart-context";
 
 export default function CourseOverview() {
-  const { courseId } = useParams<{ courseId: string }>();
+  const location = useLocation();
+  const courseId = useParams().courseId || location.state?.courseId; // Get courseId from URL params or state
   const [loading, setLoading] = useState(true);
   const [course, setCourse] = useState<Course>();
-  const { handleAddToCart } = useCart(); // Access `addToCart` from CartContext
-
+  const { handleAddToCart } = useCart(); // Access `addToCart` from CartContext 
   useEffect(() => {
     window.scrollTo(0, 0); // Scroll to top of the page on component mount
     const loadCourse = async () => {
