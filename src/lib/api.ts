@@ -172,9 +172,17 @@ export const getTrackContent = (trackId: string) => {
     }
 }
 
-export const addTrackContent = (trackId: string, content: string) => {
+export const addTrackContent = (courseId: string, content: string) => {
     try {
-        return api.post("/course/content/track/add", { trackId, content });
+        return api.post("/course/content/track/add", { courseId, content });
+    } catch (err) {
+        console.error(err);
+    }
+}
+
+export const removeTrackContent = (courseId: string, trackId: string) => {
+    try {
+        return api.delete("/course/content/track/remove", { data: { courseId, trackId } });
     } catch (err) {
         console.error(err);
     }

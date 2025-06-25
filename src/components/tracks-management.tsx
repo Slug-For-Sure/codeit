@@ -8,6 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { toast } from 'sonner'
 import { Course, Track } from '@/types'
+import { addTrackContent, removeTrackContent } from '@/lib/api'
 
 interface CourseTracksManagementProps {
   course: Course
@@ -63,8 +64,25 @@ export function CourseTracksManagement({ course, onUpdateCourse }: CourseTracksM
     setTracks(updatedTracks);
     onUpdateCourse({ ...course, tracks: updatedTracks });
     setNewTrack({ title: '', description: '', type: 'video', content: '', videoUrl: '' });
-    setIsAddingTrack(false);
-    toast.success('Track added successfully!');
+    addTrackContent(course._id, newTrack)
+      .then(response => {
+
+      if (response.status === 200) {
+        setIsAddingTrack(false);
+        toast.success('Track added successfully!'); 
+        setEditingTrackId(null); // Reset editing state
+
+      } else {
+        setIsAddingTrack(false);
+        toast.error('Failed to add track');
+      } 
+      
+      })
+      .catch(error => {
+        setIsAddingTrack(false);
+        console.error('Failed to add track', error);
+        toast.error('Failed to add track');
+      });
   };
 
   const handleEditTrack = (track: Track) => {
@@ -85,12 +103,31 @@ export function CourseTracksManagement({ course, onUpdateCourse }: CourseTracksM
 
   const handleDeleteTrack = (trackId: string) => {
     const updatedTracks = tracks.filter(track => track._id !== trackId)
-    setTracks(updatedTracks)
-    onUpdateCourse({ ...course, tracks: updatedTracks })
-    toast.success('Track deleted successfully!')
+    if (updatedTracks.length === 0) {
+      setNewTrack({ title: '', description: '', type: 'video', content: '', videoUrl: '' });
+      setEditingTrackId(null);
+    }
+    removeTrackContent(course._id, trackId)
+      .then(response => {
+        if (response.status === 200) {
+          setIsAddingTrack(false);
+          toast.success('Track removed successfully!');
+          setTracks(updatedTracks);
+          onUpdateCourse({ ...course, tracks: updatedTracks });
+        } else {
+          setIsAddingTrack(false);
+          toast.error('Failed to remove track');
+          
+        }
+      })
+      .catch(error => {
+        setIsAddingTrack(false);
+        console.error('Failed to remove track', error);
+        toast.error('Failed to remove track');
+      });
   }
 
-  console.log(tracks,'tracks');
+
   
 
   return (
