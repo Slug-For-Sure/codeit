@@ -60,6 +60,8 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
     const alreadyPurchased = user.purchasedCourses.some(
       (item) => item === courseId
     );
+    console.log("Already purchased courses:", user.purchasedCourses);
+    
     if (alreadyPurchased) {
       toast.error("You have already purchased this course.");
       return;

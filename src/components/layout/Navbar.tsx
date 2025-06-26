@@ -300,7 +300,6 @@ export const Navbar = () => {
 };
 
 const AvatarDropdown = ({ user, onLogout }) => {
-  console.log('user in AvatarDropdown:', user);
   
   return (
     <DropdownMenu>

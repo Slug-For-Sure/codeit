@@ -15,6 +15,8 @@ import { useCart } from "@/contexts/cart-context";
 export default function CourseOverview() {
   const location = useLocation();
   const courseId = useParams().courseId || location.state?.courseId; // Get courseId from URL params or state
+  console.log("Course ID:", courseId);
+  
   const [loading, setLoading] = useState(true);
   const [course, setCourse] = useState<Course>();
   const { handleAddToCart } = useCart(); // Access `addToCart` from CartContext 
