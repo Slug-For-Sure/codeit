@@ -300,6 +300,8 @@ export const Navbar = () => {
 };
 
 const AvatarDropdown = ({ user, onLogout }) => {
+  console.log('user in AvatarDropdown:', user);
+  
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
@@ -368,6 +370,8 @@ const AvatarDropdown = ({ user, onLogout }) => {
           </Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
+       {user?.role==='both'&&(
+        <>
         <DropdownMenuItem asChild>
           <Link to='/instructor'>
             <GraduationCap className="mr-2 h-4 w-4" />
@@ -375,6 +379,8 @@ const AvatarDropdown = ({ user, onLogout }) => {
           </Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
+        </>
+       )}
         <DropdownMenuItem onClick={onLogout}>
           <div className="flex items-center space-x-2">
             <LogOut className="mr-2 h-4 w-4" />
