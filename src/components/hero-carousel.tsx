@@ -68,7 +68,7 @@ export function HeroCarousel({ loading, items }: CourseCarouselProps) {
           onClick={() => {
             navigate("/course/overview/" ,{
                 state:{
-                 courseId: items[currentIndex]?._id
+                 courseId: items[0]?._id
                 }
             });
           }}
