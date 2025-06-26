@@ -40,9 +40,9 @@ export default function CourseOverview() {
     };
     loadCourse();
   }, [courseId]);
-console.log(course);
+// console.log(course);
 
-  // const handleAddToCart = async (courseId: string) => {
+  // const AddToCart = async (courseId: string) => {
   //   try {
   //     const response = await addToCart(courseId);
   //     if (!response) {

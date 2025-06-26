@@ -29,6 +29,18 @@ export default function CartContents() {
   const onCheckout = () => {
     toast.info("Redirecting to checkout page...");
   };
+  const RemoveFromCart = async (courseId: string) => {
+    try {
+      await handleRemoveFromCart(courseId);
+      setCartItems((prevItems) =>
+        prevItems.filter((item) => item._id !== courseId)
+      );
+      toast.success("Course removed from cart successfully.");
+    } catch (error) {
+      console.error("Error removing course from cart:", error);
+      toast.error("Failed to remove course from cart.");
+    }
+  };
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -89,7 +101,7 @@ export default function CartContents() {
                       <Button
                         variant="ghost"
                         size="sm"
-                        onClick={() => handleRemoveFromCart(item._id)}
+                        onClick={() => RemoveFromCart(item._id)}
                       >
                         <Trash2 className="w-4 h-4" />
                       </Button>

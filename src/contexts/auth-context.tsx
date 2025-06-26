@@ -25,7 +25,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setUser(user);
     setIsAuthenticated(true);
     localStorage.setItem("authUser", JSON.stringify(user)); // Persist user data
-    console.log("Login triggered:", { isAuthenticated, user });
+    // console.log("Login triggered:", { isAuthenticated, user });
   };
 
   const logout = () => {
@@ -33,11 +33,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setIsAuthenticated(false);
     localStorage.removeItem("authUser"); // Clear user data
     removeAuthToken();
-    console.log("User logged out.");
+    // console.log("User logged out.");
   };
 
   useEffect(() => {
-    console.log("Authentication state updated:", { isAuthenticated, user });
+    // console.log("Authentication state updated:", { isAuthenticated, user });
   }, [isAuthenticated, user]);
 
   return (
