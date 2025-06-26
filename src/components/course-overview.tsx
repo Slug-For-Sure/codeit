@@ -23,12 +23,15 @@ export default function CourseOverview() {
   useEffect(() => {
     window.scrollTo(0, 0); // Scroll to top of the page on component mount
     const loadCourse = async () => {
+      setLoading(true); // Set loading state to true before fetching
       try {
         const response = await fetchCourse(courseId);
         if (response.data.success) {
           setCourse(response.data.data);
+          setLoading(false); // Set loading state to false after fetching
         } else {
           setCourse(undefined); // Set course to undefined if not found
+          setLoading(false); // Set loading state to false if course not found
           return;
         }
 
