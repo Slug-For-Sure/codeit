@@ -236,7 +236,7 @@ export default function CourseOverview() {
                       </Button>
                     </div>
                     <div className="text-center text-sm text-muted-foreground">
-                      30-Day Money-Back Guarantee
+                      15-Day Money-Back Guarantee
                     </div>
                     <div className="text-center text-sm text-muted-foreground">
                       Full Lifetime Access
