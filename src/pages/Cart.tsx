@@ -37,7 +37,7 @@ export default function CartContents() {
       );
       toast.success("Course removed from cart successfully.");
     } catch (error) {
-      console.error("Error removing course from cart:", error);
+      // console.error("Error removing course from cart:", error);
       toast.error("Failed to remove course from cart.");
     }
   };

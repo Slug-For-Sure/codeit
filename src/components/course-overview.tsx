@@ -14,9 +14,10 @@ import { useCart } from "@/contexts/cart-context";
 
 export default function CourseOverview() {
   const location = useLocation();
-  const courseId = useParams().courseId || location.state?.courseId; // Get courseId from URL params or state
-  console.log("Course ID:", courseId);
-  
+  // const courseId = useParams().courseId || location.state?.courseId; // Get courseId from URL params or state
+  const courseId = "6849889af1ef14cd8a7ec254";
+  // console.log("Course ID:", courseId);
+
   const [loading, setLoading] = useState(true);
   const [course, setCourse] = useState<Course>();
   const { handleAddToCart } = useCart(); // Access `addToCart` from CartContext 
@@ -179,7 +180,7 @@ export default function CourseOverview() {
               <h2 className="text-xl font-semibold">Explore related topics</h2>
               <div className="flex flex-wrap gap-2">
                 {course.tags.map((tag) => (
-                  <Badge variant="secondary">{tag}</Badge>
+                  <Badge key={tag} variant="secondary">{tag}</Badge>
                 ))}
               </div>
             </div>

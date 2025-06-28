@@ -99,7 +99,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
         },
         duration: 5000,
       });
-      console.log("backend called");
+      // console.log("backend called");
 
       fetchCart();
     } catch (error) {
