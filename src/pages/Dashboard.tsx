@@ -238,7 +238,7 @@ export default function Dashboard() {
               </div>
               <h3 className="text-xl font-bold text-white mb-3">Complete Package</h3>
               <div className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent mb-4">
-                ₹4,000 <span className="text-sm text-gray-400 font-normal line-through">₹10,000</span>
+                ₹3,000 <span className="text-sm text-gray-400 font-normal line-through">₹10,000</span>
               </div>
               <p className="text-gray-300 text-sm">
                 All premium features in one affordable package
